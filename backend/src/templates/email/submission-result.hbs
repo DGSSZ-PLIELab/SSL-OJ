@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>提交结果通知 - SSL Online Judge</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #007bff;
+        }
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #007bff;
+            margin-bottom: 10px;
+        }
+        .title {
+            color: #007bff;
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .content {
+            margin-bottom: 30px;
+        }
+        .result-box {
+            border-radius: 5px;
+            padding: 25px;
+            margin: 25px 0;
+            text-align: center;
+        }
+        .result-box.accepted {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+        }
+        .result-box.wrong {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+        }
+        .result-box.pending {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+        }
+        .result-box.error {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+        }
+        .status-badge {
+            display: inline-block;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 14px;
+            margin: 10px 0;
+        }
+        .status-badge.accepted {
+            background-color: #28a745;
+            color: white;
+        }
+        .status-badge.wrong {
+            background-color: #dc3545;
+            color: white;
+        }
+        .status-badge.pending {
+            background-color: #ffc107;
+            color: #212529;
+        }
+        .status-badge.error {
+            background-color: #6c757d;
+            color: white;
+        }
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: #007bff;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .submission-details {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+            padding: 5px 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+        .detail-item:last-child {
+            border-bottom: none;
+        }
+        .score-display {
+            font-size: 24px;
+            font-weight: bold;
+            margin: 15px 0;
+        }
+        .score-display.high {
+            color: #28a745;
+        }
+        .score-display.medium {
+            color: #ffc107;
+        }
+        .score-display.low {
+            color: #dc3545;
+        }
+        .footer {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #dee2e6;
+            font-size: 14px;
+            color: #6c757d;
+            text-align: center;
+        }
+        .tips-box {
+            background-color: #d1ecf1;
+            border: 1px solid #bee5eb;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 20px 0;
+            color: #0c5460;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">SSL Online Judge</div>
+            <div>在线判题系统</div>
+        </div>
+        
+        <h2 class="title">📊 提交结果通知</h2>
+        
+        <div class="content">
+            <p>您好 <strong>{{username}}</strong>，</p>
+            
+            <p>您提交的题目 <strong>{{problemTitle}}</strong> 的判题结果已出炉！</p>
+            
+            <div class="result-box {{#if (eq status 'Accepted')}}accepted{{else if (eq status 'Wrong Answer')}}wrong{{else if (eq status 'Pending')}}pending{{else}}error{{/if}}">
+                <h3>🎯 判题结果</h3>
+                <div class="status-badge {{#if (eq status 'Accepted')}}accepted{{else if (eq status 'Wrong Answer')}}wrong{{else if (eq status 'Pending')}}pending{{else}}error{{/if}}">
+                    {{status}}
+                </div>
+                
+                {{#if score}}
+                    <div class="score-display {{#if (gte score 80)}}high{{else if (gte score 60)}}medium{{else}}low{{/if}}">
+                        得分: {{score}} 分
+                    </div>
+                {{/if}}
+                
+                {{#if (eq status 'Accepted')}}
+                    <p style="color: #28a745; font-weight: bold;">🎉 恭喜！您的代码通过了所有测试用例！</p>
+                {{else if (eq status 'Wrong Answer')}}
+                    <p style="color: #dc3545; font-weight: bold;">❌ 很遗憾，您的代码没有通过所有测试用例。</p>
+                {{else if (eq status 'Pending')}}
+                    <p style="color: #856404; font-weight: bold;">⏳ 您的提交正在判题队列中，请稍候。</p>
+                {{else}}
+                    <p style="color: #6c757d; font-weight: bold;">⚠️ 判题过程中出现了问题。</p>
+                {{/if}}
+                
+                <a href="{{submissionUrl}}" class="btn">查看详细结果</a>
+            </div>
+            
+            <div class="submission-details">
+                <h4>📋 提交详情：</h4>
+                <div class="detail-item">
+                    <span><strong>题目：</strong></span>
+                    <span>{{problemTitle}}</span>
+                </div>
+                <div class="detail-item">
+                    <span><strong>提交ID：</strong></span>
+                    <span>{{submissionId}}</span>
+                </div>
+                <div class="detail-item">
+                    <span><strong>判题状态：</strong></span>
+                    <span>{{status}}</span>
+                </div>
+                {{#if score}}
+                <div class="detail-item">
+                    <span><strong>得分：</strong></span>
+                    <span>{{score}} 分</span>
+                </div>
+                {{/if}}
+                <div class="detail-item">
+                    <span><strong>用户：</strong></span>
+                    <span>{{username}}</span>
+                </div>
+            </div>
+            
+            {{#if (eq status 'Accepted')}}
+                <div class="tips-box">
+                    <h4>🎊 太棒了！</h4>
+                    <ul style="margin: 10px 0; padding-left: 20px;">
+                        <li>您已成功解决了这道题目</li>
+                        <li>可以尝试挑战更难的题目</li>
+                        <li>查看其他用户的优秀解法</li>
+                        <li>分享您的解题心得</li>
+                    </ul>
+                </div>
+            {{else if (eq status 'Wrong Answer')}}
+                <div class="tips-box">
+                    <h4>💡 继续努力！</h4>
+                    <ul style="margin: 10px 0; padding-left: 20px;">
+                        <li>仔细检查算法逻辑是否正确</li>
+                        <li>验证边界条件的处理</li>
+                        <li>确认输入输出格式</li>
+                        <li>可以查看题目讨论区获取提示</li>
+                    </ul>
+                </div>
+            {{else if (eq status 'Pending')}}
+                <div class="tips-box">
+                    <h4>⏰ 请耐心等待</h4>
+                    <ul style="margin: 10px 0; padding-left: 20px;">
+                        <li>系统正在处理您的提交</li>
+                        <li>判题完成后会立即通知您</li>
+                        <li>您可以继续解决其他题目</li>
+                        <li>刷新页面查看最新状态</li>
+                    </ul>
+                </div>
+            {{else}}
+                <div class="tips-box">
+                    <h4>🔧 遇到问题？</h4>
+                    <ul style="margin: 10px 0; padding-left: 20px;">
+                        <li>检查代码是否存在编译错误</li>
+                        <li>确认代码符合题目要求</li>
+                        <li>如果问题持续，请联系管理员</li>
+                        <li>可以重新提交尝试</li>
+                    </ul>
+                </div>
+            {{/if}}
+            
+            <p>继续加油，在编程的道路上不断进步！如果您有任何问题，请随时联系我们。</p>
+        </div>
+        
+        <div class="footer">
+            <p>此邮件由SSL Online Judge系统自动发送，请勿回复。</p>
+            <p>查看更多提交记录和题目，请访问我们的平台。</p>
+            <p>&copy; 2025 SSL Online Judge. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>账户状态变更通知 - SSL Online Judge</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+        }
+        .header.active {
+            border-bottom: 2px solid #28a745;
+        }
+        .header.banned {
+            border-bottom: 2px solid #dc3545;
+        }
+        .header.suspended {
+            border-bottom: 2px solid #ffc107;
+        }
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .logo.active {
+            color: #28a745;
+        }
+        .logo.banned {
+            color: #dc3545;
+        }
+        .logo.suspended {
+            color: #ffc107;
+        }
+        .title {
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .title.active {
+            color: #28a745;
+        }
+        .title.banned {
+            color: #dc3545;
+        }
+        .title.suspended {
+            color: #ffc107;
+        }
+        .content {
+            margin-bottom: 30px;
+        }
+        .status-box {
+            border-radius: 5px;
+            padding: 25px;
+            margin: 25px 0;
+            text-align: center;
+        }
+        .status-box.active {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+        }
+        .status-box.banned {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+        }
+        .status-box.suspended {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+        }
+        .status-badge {
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 25px;
+            font-weight: bold;
+            font-size: 16px;
+            margin: 15px 0;
+        }
+        .status-badge.active {
+            background-color: #28a745;
+            color: white;
+        }
+        .status-badge.banned {
+            background-color: #dc3545;
+            color: white;
+        }
+        .status-badge.suspended {
+            background-color: #ffc107;
+            color: #212529;
+        }
+        .reason-box {
+            background-color: #f8f9fa;
+            border-left: 4px solid #6c757d;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .reason-box.active {
+            border-left-color: #28a745;
+        }
+        .reason-box.banned {
+            border-left-color: #dc3545;
+        }
+        .reason-box.suspended {
+            border-left-color: #ffc107;
+        }
+        .footer {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #dee2e6;
+            font-size: 14px;
+            color: #6c757d;
+            text-align: center;
+        }
+        .contact-info {
+            background-color: #d1ecf1;
+            border: 1px solid #bee5eb;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 20px 0;
+            color: #0c5460;
+        }
+        .warning-box {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 20px 0;
+            color: #721c24;
+        }
+        .info-box {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 20px 0;
+            color: #155724;
+        }
+        .details-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background-color: #f8f9fa;
+        }
+        .details-table th,
+        .details-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #dee2e6;
+        }
+        .details-table th {
+            background-color: #e9ecef;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header {{#if (eq newStatus '已激活')}}active{{else if (eq newStatus '已封禁')}}banned{{else}}suspended{{/if}}">
+            <div class="logo {{#if (eq newStatus '已激活')}}active{{else if (eq newStatus '已封禁')}}banned{{else}}suspended{{/if}}">SSL Online Judge</div>
+            <div>账户状态管理</div>
+        </div>
+        
+        <h2 class="title {{#if (eq newStatus '已激活')}}active{{else if (eq newStatus '已封禁')}}banned{{else}}suspended{{/if}}">
+            {{#if (eq newStatus '已激活')}}
+                ✅ 账户已激活
+            {{else if (eq newStatus '已封禁')}}
+                🚫 账户已封禁
+            {{else}}
+                ⏸️ 账户已暂停
+            {{/if}}
+        </h2>
+        
+        <div class="content">
+            <p>您好 <strong>{{username}}</strong>，</p>
+            
+            <p>我们向您发送此邮件是为了通知您，您的SSL Online Judge账户状态已发生变更。</p>
+            
+            <div class="status-box {{#if (eq newStatus '已激活')}}active{{else if (eq newStatus '已封禁')}}banned{{else}}suspended{{/if}}">
+                <h3>
+                    {{#if (eq newStatus '已激活')}}
+                        🎉 账户状态更新
+                    {{else if (eq newStatus '已封禁')}}
+                        ⚠️ 账户状态更新
+                    {{else}}
+                        📋 账户状态更新
+                    {{/if}}
+                </h3>
+                <div class="status-badge {{#if (eq newStatus '已激活')}}active{{else if (eq newStatus '已封禁')}}banned{{else}}suspended{{/if}}">
+                    {{newStatus}}
+                </div>
+                
+                {{#if (eq newStatus '已激活')}}
+                    <p style="color: #28a745; font-weight: bold;">您的账户现在已完全激活，可以正常使用所有功能！</p>
+                {{else if (eq newStatus '已封禁')}}
+                    <p style="color: #dc3545; font-weight: bold;">您的账户已被封禁，无法访问平台功能。</p>
+                {{else}}
+                    <p style="color: #856404; font-weight: bold;">您的账户已被暂停，部分功能可能受限。</p>
+                {{/if}}
+            </div>
+            
+            <table class="details-table">
+                <tr>
+                    <th>用户名</th>
+                    <td>{{username}}</td>
+                </tr>
+                <tr>
+                    <th>新状态</th>
+                    <td><strong>{{newStatus}}</strong></td>
+                </tr>
+                <tr>
+                    <th>变更时间</th>
+                    <td>{{changeTime}}</td>
+                </tr>
+                {{#if reason}}
+                <tr>
+                    <th>变更原因</th>
+                    <td>{{reason}}</td>
+                </tr>
+                {{/if}}
+            </table>
+            
+            {{#if reason}}
+                <div class="reason-box {{#if (eq newStatus '已激活')}}active{{else if (eq newStatus '已封禁')}}banned{{else}}suspended{{/if}}">
+                    <h4>📝 变更原因：</h4>
+                    <p>{{reason}}</p>
+                </div>
+            {{/if}}
+            
+            {{#if (eq newStatus '已激活')}}
+                <div class="info-box">
+                    <h4>🎊 欢迎回来！</h4>
+                    <p>您的账户已成功激活，现在可以：</p>
+                    <ul style="margin: 10px 0; padding-left: 20px;">
+                        <li>正常登录和使用所有平台功能</li>
+                        <li>提交代码和参与编程练习</li>
+                        <li>参加编程竞赛和活动</li>
+                        <li>访问学习资源和题库</li>
+                        <li>与其他用户交流和讨论</li>
+                    </ul>
+                    <p>感谢您继续使用SSL Online Judge！</p>
+                </div>
+            {{else if (eq newStatus '已封禁')}}
+                <div class="warning-box">
+                    <h4>🚨 账户封禁说明</h4>
+                    <p>您的账户已被封禁，这意味着：</p>
+                    <ul style="margin: 10px 0; padding-left: 20px;">
+                        <li>无法登录SSL Online Judge平台</li>
+                        <li>无法提交代码或参与竞赛</li>
+                        <li>无法访问平台的任何功能</li>
+                        <li>所有相关服务将被暂停</li>
+                    </ul>
+                    <p><strong>如果您认为这是误操作，请立即联系我们的技术支持团队。</strong></p>
+                </div>
+            {{else}}
+                <div class="warning-box">
+                    <h4>⏸️ 账户暂停说明</h4>
+                    <p>您的账户已被暂停，这可能影响：</p>
+                    <ul style="margin: 10px 0; padding-left: 20px;">
+                        <li>部分平台功能可能受限</li>
+                        <li>代码提交可能被限制</li>
+                        <li>竞赛参与可能受影响</li>
+                        <li>某些资源访问可能被限制</li>
+                    </ul>
+                    <p><strong>请联系管理员了解具体限制和恢复条件。</strong></p>
+                </div>
+            {{/if}}
+            
+            <div class="contact-info">
+                <h4>📞 需要帮助？</h4>
+                <p>如果您对账户状态变更有任何疑问，或需要申诉，请联系我们：</p>
+                <ul style="margin: 10px 0; padding-left: 20px;">
+                    <li><strong>技术支持邮箱：</strong> <a href="mailto:{{supportEmail}}">{{supportEmail}}</a></li>
+                    <li><strong>管理员邮箱：</strong> admin@ssloj.com</li>
+                    <li><strong>申诉渠道：</strong> appeal@ssloj.com</li>
+                </ul>
+                <p>我们会在收到您的邮件后24小时内回复。</p>
+            </div>
+            
+            {{#unless (eq newStatus '已封禁')}}
+                <div style="background-color: #f8f9fa; border-left: 4px solid #007bff; padding: 15px; margin: 20px 0;">
+                    <h4>💡 温馨提示：</h4>
+                    <ul style="margin: 10px 0; padding-left: 20px;">
+                        <li>请遵守平台使用规则和社区准则</li>
+                        <li>保护好您的账户信息，不要与他人分享</li>
+                        <li>如发现异常活动，请及时联系我们</li>
+                        <li>定期查看平台公告和更新信息</li>
+                    </ul>
+                </div>
+            {{/unless}}
+        </div>
+        
+        <div class="footer">
+            <p>此邮件由SSL Online Judge系统自动发送，请勿回复。</p>
+            <p>我们致力于为所有用户提供安全、公平的学习环境。</p>
+            <p>&copy; 2025 SSL Online Judge. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>

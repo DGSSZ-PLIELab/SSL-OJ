@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>比赛通知 - SSL Online Judge</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #ffc107;
+        }
+        .header.start {
+            border-bottom-color: #28a745;
+        }
+        .header.end {
+            border-bottom-color: #dc3545;
+        }
+        .header.reminder {
+            border-bottom-color: #007bff;
+        }
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #ffc107;
+            margin-bottom: 10px;
+        }
+        .logo.start {
+            color: #28a745;
+        }
+        .logo.end {
+            color: #dc3545;
+        }
+        .logo.reminder {
+            color: #007bff;
+        }
+        .title {
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .title.start {
+            color: #28a745;
+        }
+        .title.end {
+            color: #dc3545;
+        }
+        .title.reminder {
+            color: #007bff;
+        }
+        .content {
+            margin-bottom: 30px;
+        }
+        .contest-box {
+            border-radius: 5px;
+            padding: 25px;
+            margin: 25px 0;
+            text-align: center;
+        }
+        .contest-box.start {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+        }
+        .contest-box.end {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+        }
+        .contest-box.reminder {
+            background-color: #d1ecf1;
+            border: 1px solid #bee5eb;
+        }
+        .btn {
+            display: inline-block;
+            padding: 15px 35px;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 16px;
+            margin: 15px 0;
+        }
+        .btn.start {
+            background-color: #28a745;
+        }
+        .btn.start:hover {
+            background-color: #218838;
+        }
+        .btn.end {
+            background-color: #dc3545;
+        }
+        .btn.end:hover {
+            background-color: #c82333;
+        }
+        .btn.reminder {
+            background-color: #007bff;
+        }
+        .btn.reminder:hover {
+            background-color: #0056b3;
+        }
+        .info-box {
+            background-color: #f8f9fa;
+            border-left: 4px solid #6c757d;
+            padding: 15px;
+            margin: 20px 0;
+        }
+        .footer {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #dee2e6;
+            font-size: 14px;
+            color: #6c757d;
+            text-align: center;
+        }
+        .contest-details {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .detail-item {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+            padding: 5px 0;
+            border-bottom: 1px solid #e9ecef;
+        }
+        .detail-item:last-child {
+            border-bottom: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header {{notificationType}}">
+            <div class="logo {{notificationType}}">SSL Online Judge</div>
+            <div>编程竞赛平台</div>
+        </div>
+        
+        {{#if (eq notificationType "start")}}
+            <h2 class="title start">🚀 比赛已开始！</h2>
+        {{else if (eq notificationType "end")}}
+            <h2 class="title end">🏁 比赛已结束</h2>
+        {{else if (eq notificationType "reminder")}}
+            <h2 class="title reminder">⏰ 比赛即将开始</h2>
+        {{/if}}
+        
+        <div class="content">
+            {{#if (eq notificationType "start")}}
+                <p>比赛 <strong>{{contestTitle}}</strong> 现在已经开始！</p>
+                <p>快来展示您的编程技能，与其他参赛者一较高下吧！</p>
+            {{else if (eq notificationType "end")}}
+                <p>比赛 <strong>{{contestTitle}}</strong> 已经结束。</p>
+                <p>感谢您的参与！请查看最终排名和您的成绩。</p>
+            {{else if (eq notificationType "reminder")}}
+                <p>比赛 <strong>{{contestTitle}}</strong> 即将开始！</p>
+                <p>请做好准备，确保您已经了解比赛规则和题目要求。</p>
+            {{/if}}
+            
+            <div class="contest-box {{notificationType}}">
+                <h3>📊 {{contestTitle}}</h3>
+                {{#if (eq notificationType "start")}}
+                    <p>比赛正在进行中，立即参加！</p>
+                    <a href="{{contestUrl}}" class="btn start">进入比赛</a>
+                {{else if (eq notificationType "end")}}
+                    <p>查看比赛结果和排行榜</p>
+                    <a href="{{contestUrl}}" class="btn end">查看结果</a>
+                {{else if (eq notificationType "reminder")}}
+                    <p>比赛即将开始，请提前准备</p>
+                    <a href="{{contestUrl}}" class="btn reminder">查看比赛详情</a>
+                {{/if}}
+                <p style="margin-top: 20px; font-size: 13px; color: #6c757d;">
+                    如果按钮无法点击，请复制以下链接到浏览器：<br>
+                    <span style="word-break: break-all; font-family: monospace; background-color: #f8f9fa; padding: 5px;">{{contestUrl}}</span>
+                </p>
+            </div>
+            
+            {{#if (eq notificationType "start")}}
+                <div class="info-box">
+                    <h4>🎯 比赛进行中的提醒：</h4>
+                    <ul style="margin: 10px 0; padding-left: 20px;">
+                        <li>仔细阅读每道题目的要求和限制条件</li>
+                        <li>注意时间限制，合理分配答题时间</li>
+                        <li>测试您的代码，确保通过样例</li>
+                        <li>如遇技术问题，请及时联系管理员</li>
+                    </ul>
+                </div>
+            {{else if (eq notificationType "end")}}
+                <div class="info-box">
+                    <h4>📈 比赛结束后：</h4>
+                    <ul style="margin: 10px 0; padding-left: 20px;">
+                        <li>查看您的最终排名和得分</li>
+                        <li>回顾题目解答，学习其他优秀解法</li>
+                        <li>参与讨论，分享解题心得</li>
+                        <li>关注后续比赛，继续提升技能</li>
+                    </ul>
+                </div>
+            {{else if (eq notificationType "reminder")}}
+                <div class="info-box">
+                    <h4>📝 比赛前准备：</h4>
+                    <ul style="margin: 10px 0; padding-left: 20px;">
+                        <li>确保网络连接稳定</li>
+                        <li>准备好您熟悉的编程环境</li>
+                        <li>复习相关算法和数据结构</li>
+                        <li>了解比赛规则和评分标准</li>
+                    </ul>
+                </div>
+            {{/if}}
+            
+            <div class="contest-details">
+                <h4>📋 比赛信息：</h4>
+                <div class="detail-item">
+                    <span><strong>比赛名称：</strong></span>
+                    <span>{{contestTitle}}</span>
+                </div>
+                <div class="detail-item">
+                    <span><strong>通知类型：</strong></span>
+                    <span>
+                        {{#if (eq notificationType "start")}}
+                            比赛开始
+                        {{else if (eq notificationType "end")}}
+                            比赛结束
+                        {{else if (eq notificationType "reminder")}}
+                            比赛提醒
+                        {{/if}}
+                    </span>
+                </div>
+                <div class="detail-item">
+                    <span><strong>平台：</strong></span>
+                    <span>SSL Online Judge</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>此邮件由SSL Online Judge系统自动发送，请勿回复。</p>
+            <p>访问我们的网站：<a href="{{websiteUrl}}">{{websiteUrl}}</a></p>
+            <p>祝您在编程竞赛中取得优异成绩！</p>
+            <p>&copy; 2025 SSL Online Judge. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>
