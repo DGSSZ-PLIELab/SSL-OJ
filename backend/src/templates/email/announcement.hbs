@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>系统公告 - SSL Online Judge</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+        }
+        .header.high {
+            border-bottom: 2px solid #dc3545;
+        }
+        .header.normal {
+            border-bottom: 2px solid #ffc107;
+        }
+        .header.low {
+            border-bottom: 2px solid #007bff;
+        }
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+        .logo.high {
+            color: #dc3545;
+        }
+        .logo.normal {
+            color: #ffc107;
+        }
+        .logo.low {
+            color: #007bff;
+        }
+        .title {
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .title.high {
+            color: #dc3545;
+        }
+        .title.normal {
+            color: #ffc107;
+        }
+        .title.low {
+            color: #007bff;
+        }
+        .content {
+            margin-bottom: 30px;
+        }
+        .announcement-box {
+            border-radius: 5px;
+            padding: 25px;
+            margin: 25px 0;
+        }
+        .announcement-box.high {
+            background-color: #f8d7da;
+            border: 1px solid #f5c6cb;
+        }
+        .announcement-box.normal {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+        }
+        .announcement-box.low {
+            background-color: #d1ecf1;
+            border: 1px solid #bee5eb;
+        }
+        .priority-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 15px;
+            font-weight: bold;
+            font-size: 12px;
+            margin-bottom: 15px;
+        }
+        .priority-badge.high {
+            background-color: #dc3545;
+            color: white;
+        }
+        .priority-badge.normal {
+            background-color: #ffc107;
+            color: #212529;
+        }
+        .priority-badge.low {
+            background-color: #007bff;
+            color: white;
+        }
+        .announcement-content {
+            background-color: #f8f9fa;
+            border-left: 4px solid #6c757d;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        .announcement-content.high {
+            border-left-color: #dc3545;
+        }
+        .announcement-content.normal {
+            border-left-color: #ffc107;
+        }
+        .announcement-content.low {
+            border-left-color: #007bff;
+        }
+        .footer {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #dee2e6;
+            font-size: 14px;
+            color: #6c757d;
+            text-align: center;
+        }
+        .icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+        }
+        .action-box {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: #007bff;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            margin: 10px 5px;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header {{priority}}">
+            <div class="logo {{priority}}">SSL Online Judge</div>
+            <div>系统公告通知</div>
+        </div>
+        
+        <div class="announcement-box {{priority}}">
+            <div class="priority-badge {{priority}}">
+                {{#if (eq priority "high")}}
+                    🚨 紧急公告
+                {{else if (eq priority "normal")}}
+                    📢 重要公告
+                {{else}}
+                    📝 一般公告
+                {{/if}}
+            </div>
+            
+            <div class="icon">
+                {{#if (eq priority "high")}}
+                    🚨
+                {{else if (eq priority "normal")}}
+                    📢
+                {{else}}
+                    📝
+                {{/if}}
+            </div>
+            
+            <h2 class="title {{priority}}">{{title}}</h2>
+        </div>
+        
+        <div class="content">
+            <div class="announcement-content {{priority}}">
+                <h4>📋 公告内容：</h4>
+                <div style="margin: 15px 0; line-height: 1.8;">
+                    {{{content}}}
+                </div>
+            </div>
+            
+            {{#if (eq priority "high")}}
+                <div style="background-color: #f8d7da; border: 1px solid #f5c6cb; border-radius: 5px; padding: 15px; margin: 20px 0; color: #721c24;">
+                    <h4>⚠️ 紧急提醒：</h4>
+                    <ul style="margin: 10px 0; padding-left: 20px;">
+                        <li>此为紧急公告，请立即关注</li>
+                        <li>可能影响系统正常使用</li>
+                        <li>请按照公告要求及时处理</li>
+                        <li>如有疑问请立即联系管理员</li>
+                    </ul>
+                </div>
+            {{else if (eq priority "normal")}}
+                <div style="background-color: #fff3cd; border: 1px solid #ffeaa7; border-radius: 5px; padding: 15px; margin: 20px 0; color: #856404;">
+                    <h4>📌 重要提醒：</h4>
+                    <ul style="margin: 10px 0; padding-left: 20px;">
+                        <li>此为重要公告，请仔细阅读</li>
+                        <li>可能涉及系统功能变更</li>
+                        <li>建议收藏此邮件以备查看</li>
+                        <li>如有问题请联系技术支持</li>
+                    </ul>
+                </div>
+            {{else}}
+                <div style="background-color: #d1ecf1; border: 1px solid #bee5eb; border-radius: 5px; padding: 15px; margin: 20px 0; color: #0c5460;">
+                    <h4>💡 温馨提示：</h4>
+                    <ul style="margin: 10px 0; padding-left: 20px;">
+                        <li>此为一般性公告信息</li>
+                        <li>建议了解相关内容</li>
+                        <li>有助于更好地使用平台</li>
+                        <li>欢迎提出意见和建议</li>
+                    </ul>
+                </div>
+            {{/if}}
+            
+            <div class="action-box">
+                <h4>🔗 相关操作：</h4>
+                <a href="{{websiteUrl}}" class="btn">访问平台</a>
+                <a href="{{websiteUrl}}/announcements" class="btn">查看所有公告</a>
+            </div>
+            
+            <div style="background-color: #f8f9fa; border-left: 4px solid #6c757d; padding: 15px; margin: 20px 0;">
+                <h4>📞 联系我们：</h4>
+                <p>如果您对此公告有任何疑问或需要帮助，请通过以下方式联系我们：</p>
+                <ul style="margin: 10px 0; padding-left: 20px;">
+                    <li><strong>技术支持：</strong> support@ssloj.com</li>
+                    <li><strong>管理员：</strong> admin@ssloj.com</li>
+                    <li><strong>官方网站：</strong> <a href="{{websiteUrl}}">{{websiteUrl}}</a></li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>此邮件由SSL Online Judge系统自动发送，请勿回复。</p>
+            <p>我们会定期发送重要公告，请关注您的邮箱。</p>
+            <p>感谢您使用SSL Online Judge平台！</p>
+            <p>&copy; 2025 SSL Online Judge. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>

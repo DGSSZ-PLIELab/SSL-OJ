@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>欢迎加入SSL Online Judge</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #007bff;
+        }
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #007bff;
+            margin-bottom: 10px;
+        }
+        .welcome-title {
+            color: #007bff;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+        .content {
+            margin-bottom: 30px;
+        }
+        .verification-box {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .btn {
+            display: inline-block;
+            padding: 12px 30px;
+            background-color: #007bff;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        .btn:hover {
+            background-color: #0056b3;
+        }
+        .footer {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #dee2e6;
+            font-size: 14px;
+            color: #6c757d;
+            text-align: center;
+        }
+        .features {
+            margin: 20px 0;
+        }
+        .feature-item {
+            margin: 10px 0;
+            padding: 10px;
+            background-color: #f8f9fa;
+            border-left: 4px solid #007bff;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">SSL Online Judge</div>
+            <div>在线编程学习平台</div>
+        </div>
+        
+        <h2 class="welcome-title">欢迎加入SSL OJ！</h2>
+        
+        <div class="content">
+            <p>亲爱的 <strong>{{username}}</strong>，</p>
+            
+            <p>欢迎您加入SSL Online Judge在线编程学习平台！我们很高兴您选择我们的平台来提升您的编程技能。</p>
+            
+            <div class="verification-box">
+                <h3>请验证您的邮箱</h3>
+                <p>为了确保账户安全，请点击下面的按钮验证您的邮箱地址：</p>
+                <a href="{{verificationUrl}}" class="btn">验证邮箱</a>
+                <p style="margin-top: 15px; font-size: 12px; color: #6c757d;">
+                    如果按钮无法点击，请复制以下链接到浏览器：<br>
+                    <span style="word-break: break-all;">{{verificationUrl}}</span>
+                </p>
+            </div>
+            
+            <div class="features">
+                <h3>平台特色功能：</h3>
+                <div class="feature-item">
+                    <strong>🎯 丰富的题库</strong> - 涵盖算法、数据结构等多个领域
+                </div>
+                <div class="feature-item">
+                    <strong>⚡ 实时判题</strong> - 快速准确的在线代码评测
+                </div>
+                <div class="feature-item">
+                    <strong>🏆 竞赛系统</strong> - 参与编程竞赛，挑战自我
+                </div>
+                <div class="feature-item">
+                    <strong>📊 学习统计</strong> - 详细的学习进度和成绩分析
+                </div>
+            </div>
+            
+            <p>开始您的编程之旅吧！如果您有任何问题，请随时联系我们的支持团队。</p>
+        </div>
+        
+        <div class="footer">
+            <p>此邮件由SSL Online Judge系统自动发送，请勿回复。</p>
+            <p>如需帮助，请联系：<a href="mailto:{{supportEmail}}">{{supportEmail}}</a></p>
+            <p>访问我们的网站：<a href="{{websiteUrl}}">{{websiteUrl}}</a></p>
+            <p>&copy; 2025 SSL Online Judge. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>

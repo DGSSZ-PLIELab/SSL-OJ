@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>邮箱验证 - SSL Online Judge</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #28a745;
+        }
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #28a745;
+            margin-bottom: 10px;
+        }
+        .title {
+            color: #28a745;
+            font-size: 24px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .content {
+            margin-bottom: 30px;
+        }
+        .verification-box {
+            background-color: #d4edda;
+            border: 1px solid #c3e6cb;
+            border-radius: 5px;
+            padding: 25px;
+            margin: 25px 0;
+            text-align: center;
+        }
+        .btn {
+            display: inline-block;
+            padding: 15px 35px;
+            background-color: #28a745;
+            color: #ffffff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 16px;
+            margin: 15px 0;
+        }
+        .btn:hover {
+            background-color: #218838;
+        }
+        .warning {
+            background-color: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 20px 0;
+            color: #856404;
+        }
+        .footer {
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #dee2e6;
+            font-size: 14px;
+            color: #6c757d;
+            text-align: center;
+        }
+        .security-tips {
+            background-color: #f8f9fa;
+            border-left: 4px solid #007bff;
+            padding: 15px;
+            margin: 20px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="logo">SSL Online Judge</div>
+            <div>邮箱验证服务</div>
+        </div>
+        
+        <h2 class="title">📧 邮箱验证</h2>
+        
+        <div class="content">
+            <p>您好 <strong>{{username}}</strong>，</p>
+            
+            <p>感谢您注册SSL Online Judge！为了确保您的账户安全并完成注册流程，请验证您的邮箱地址。</p>
+            
+            <div class="verification-box">
+                <h3>🔐 验证您的邮箱</h3>
+                <p>点击下面的按钮来验证您的邮箱地址：</p>
+                <a href="{{verificationUrl}}" class="btn">立即验证邮箱</a>
+                <p style="margin-top: 20px; font-size: 13px; color: #6c757d;">
+                    如果按钮无法点击，请复制以下链接到浏览器地址栏：<br>
+                    <span style="word-break: break-all; font-family: monospace; background-color: #f8f9fa; padding: 5px;">{{verificationUrl}}</span>
+                </p>
+            </div>
+            
+            <div class="warning">
+                <strong>⚠️ 重要提醒：</strong>
+                <ul style="margin: 10px 0; padding-left: 20px;">
+                    <li>此验证链接将在 <strong>{{expirationHours}} 小时</strong> 后失效</li>
+                    <li>验证完成后，您将可以正常使用所有平台功能</li>
+                    <li>如果您没有注册SSL OJ账户，请忽略此邮件</li>
+                </ul>
+            </div>
+            
+            <div class="security-tips">
+                <h4>🛡️ 安全提示：</h4>
+                <ul style="margin: 10px 0; padding-left: 20px;">
+                    <li>SSL OJ不会通过邮件索要您的密码</li>
+                    <li>请确保在官方网站上进行操作</li>
+                    <li>如发现可疑活动，请立即联系我们</li>
+                </ul>
+            </div>
+            
+            <p>验证完成后，您就可以开始使用SSL Online Judge的所有功能了！</p>
+        </div>
+        
+        <div class="footer">
+            <p>此邮件由SSL Online Judge系统自动发送，请勿回复。</p>
+            <p>如需帮助，请联系技术支持。</p>
+            <p>&copy; 2025 SSL Online Judge. All rights reserved.</p>
+        </div>
+    </div>
+</body>
+</html>
